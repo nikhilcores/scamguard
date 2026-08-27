@@ -17,3 +17,24 @@ def find_urgency_indicators(message):
             findings.append(phrase)
 
     return findings
+    
+THREAT_WORDS = {
+    "account will be blocked",
+    "account has been suspended",
+    "legal action",
+    "penalty",
+    "fine",
+    "police",
+    "court action",
+}
+
+
+def find_threat_indicators(message):
+    text = message.lower()
+    findings = []
+
+    for phrase in THREAT_WORDS:
+        if phrase in text:
+            findings.append(phrase)
+
+    return findings
