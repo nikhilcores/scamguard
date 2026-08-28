@@ -38,3 +38,23 @@ def find_threat_indicators(message):
             findings.append(phrase)
 
     return findings
+
+CREDENTIAL_WORDS = {
+    "password",
+    "otp",
+    "pin",
+    "verification code",
+    "security code",
+    "login details",
+}
+
+
+def find_credential_indicators(message):
+    text = message.lower()
+    findings = []
+
+    for phrase in CREDENTIAL_WORDS:
+        if phrase in text:
+            findings.append(phrase)
+
+    return findings
