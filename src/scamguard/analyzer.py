@@ -1,5 +1,6 @@
 from .indicators import (
     find_credential_indicators,
+    find_financial_indicators,
     find_threat_indicators,
     find_urgency_indicators,
 )
@@ -11,6 +12,7 @@ def analyze_message(message):
     urgency = find_urgency_indicators(message)
     threat = find_threat_indicators(message)
     credential = find_credential_indicators(message)
+    financial = find_financial_indicators(message)
 
     indicators = []
 
@@ -19,15 +21,20 @@ def analyze_message(message):
             "type": "urgency",
             "matches": urgency,
         })
-        if threat:
-    indicators.append({
-        "type": "threat",
-        "matches": threat,
-    })
+    if threat:
+        indicators.append({
+            "type": "threat",
+            "matches": threat,
+        })
     if credential:
         indicators.append({
             "type": "credential:,
             "matches": credential,
+        })
+    if financial:
+        indicators.append({
+            "type": "financial",
+            "matches": financial,
         })
 
     return {
