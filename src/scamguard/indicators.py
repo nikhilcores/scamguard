@@ -58,3 +58,25 @@ def find_credential_indicators(message):
             findings.append(phrase)
 
     return findings
+
+FINANCIAL_WORDS = {
+    "payment",
+    "refund",
+    "prize",
+    "lottery",
+    "bank transfer",
+    "send money",
+    "claim your reward",
+    "investment",
+}
+
+
+def find_financial_indicators(message):
+    text = message.lower()
+    findings = []
+
+    for phrase in FINANCIAL_WORDS:
+        if phrase in text:
+            findings.append(phrase)
+
+    return findings
