@@ -1,3 +1,4 @@
+from .scoring import calculate_score, get_risk_level
 from .severity import get_severity
 from .indicators import (
     find_credential_indicators,
@@ -42,8 +43,12 @@ def analyze_message(message):
             "matches": financial,
         })
 
+score = calculate_score(indicators)
+risk_level = get_risk_level(score)
+
     return {
         "message": message,
         "indicators": indicators,
-        "score": 0,
+        "score": score,
+        "risk_level": risk_level,
     }
