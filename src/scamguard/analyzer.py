@@ -45,10 +45,12 @@ def analyze_message(message):
 
 score = calculate_score(indicators)
 risk_level = get_risk_level(score)
+indicator_count = len(indicators)
 
     return {
         "message": message,
         "indicators": indicators,
+        "indicator_count": indicator_count,
         "score": score,
         "risk_level": risk_level,
     }
