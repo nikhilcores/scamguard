@@ -13,3 +13,12 @@ def calculate_score(indicators):
         score += RISK_WEIGHTS.get(indicator_type, 0)
 
     return min(score, 100)
+
+def get_risk_level(score):
+    if score >= 75:
+        return "high"
+
+    if score >= 40:
+        return "medium"
+
+    return "low
