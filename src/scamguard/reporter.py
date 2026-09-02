@@ -1,3 +1,4 @@
+import json
 def format_report(result):
     lines = [
         "ScamGuard",
@@ -37,3 +38,10 @@ def format_report(result):
         lines.append("")
 
     return "\n".join(lines)
+
+def format_json_report(result):
+    return json.dumps(
+        result,
+        indent=2,
+        ensure_ascii=False,
+    )
