@@ -1,5 +1,6 @@
 from .explanations import get_explanation
 from .recommendations import get_recommendation
+from .reporter import format_report
 from .scoring import calculate_score, get_risk_level
 from .severity import get_severity
 from .indicators import (
@@ -64,3 +65,7 @@ indicator_count = len(indicators)
         "score": score,
         "risk_level": risk_level,
     }
+
+result["report"] = format_report(result)
+
+return result
