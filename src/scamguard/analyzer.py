@@ -1,4 +1,5 @@
 from .explanations import get_explanation
+from .recommendations import get_recommendation
 from .scoring import calculate_score, get_risk_level
 from .severity import get_severity
 from .indicators import (
@@ -25,6 +26,7 @@ def analyze_message(message):
             "severity": get_severity("urgency"),
             "matches": urgency,
             "explanation": get_explanation("urgency"),
+            "recommendation": get_recommendation("urgency"),
         })
     if threat:
         indicators.append({
@@ -32,6 +34,7 @@ def analyze_message(message):
             "severity": get_severity("threat"),
             "matches": threat,
             "explanation": get_explanation("threat"),
+            "recommendation": get_recommendation("threat"),
         })
     if credential:
         indicators.append({
@@ -39,6 +42,7 @@ def analyze_message(message):
             "severity": get_severity("credential"),
             "matches": credential,
             "explanation": get_explanation("credential"),
+            "recommendation": get_recommendation("credential"),
         })
     if financial:
         indicators.append({
@@ -46,6 +50,7 @@ def analyze_message(message):
             "severity": get_severity("financial"),
             "matches": financial,
             "explanation": get_explanation("financial"),
+            "recommendation": get_recommendation("financial"),
         })
 
 score = calculate_score(indicators)
