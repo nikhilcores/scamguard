@@ -8,5 +8,8 @@ version = "0.1.0"
 description = "A simple tool to check suspicious messages for common scam signs."
 requires-python = ">=3.9"
 
+[project.scripts]
+scamguard = "scamguard.cli.main"
+
 [tool.setuptools.packages.find]
 where = ["src"]
