@@ -2,6 +2,7 @@ import argparse
 
 from .analyzer import analyze_message
 from .input import read_message
+from .reporter import format_json_report
 
 
 def main():
@@ -22,6 +23,12 @@ def main():
         help="Read the message from a text file",
     )
 
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        help="Output the analysis as JSON",
+    )
+
     args = parser.parse_args()
 
     if args.file:
@@ -31,7 +38,10 @@ def main():
 
     result = analyze_message(message)
 
-    print(result["report"])
+    if args.json:
+        print(format_json_report(result))
+    else:
+        print(result["report"])
 
 
 if __name__ == "__main__":
