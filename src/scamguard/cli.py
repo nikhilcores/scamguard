@@ -31,12 +31,16 @@ def main():
 
     args = parser.parse_args()
 
-    if args.file:
-        message = read_message(args.file)
-    else:
-        message = args.message
+    try:
+        if args.file:
+            message = read_message(args.file)
+        else:
+            message = args.message
 
-    result = analyze_message(message)
+        result = analyze_message(message)
+
+    except (FileNotFoundError, ValueError) as error:
+        parser.error(str(error))
 
     if args.json:
         print(format_json_report(result))
