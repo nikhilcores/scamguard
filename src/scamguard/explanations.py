@@ -15,6 +15,10 @@ EXPLANATIONS = {
         "The message involves money, payments, rewards, "
         "refunds, or financial transactions."
     ),
+    "url": (
+        "The message contains a link that should be checked "
+        "carefully before opening."
+),
 }
 
 
