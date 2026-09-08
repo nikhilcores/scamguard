@@ -3,6 +3,7 @@ SEVERITY_LEVELS = {
     "threat": "high",
     "credential": "high",
     "financial": "medium",
+    "url": "medium",
 }
 
 
