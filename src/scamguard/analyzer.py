@@ -8,6 +8,7 @@ from .indicators import (
     find_financial_indicators,
     find_threat_indicators,
     find_urgency_indicators,
+    find_url_indicators,
 )
 
 def analyze_message(message):
@@ -18,6 +19,7 @@ def analyze_message(message):
     threat = find_threat_indicators(message)
     credential = find_credential_indicators(message)
     financial = find_financial_indicators(message)
+    url = find_url_indicators(message)
 
     indicators = []
 
@@ -53,6 +55,14 @@ def analyze_message(message):
             "explanation": get_explanation("financial"),
             "recommendation": get_recommendation("financial"),
         })
+    if url:
+    indicators.append({
+        "type": "url",
+        "severity": get_severity("url"),
+        "matches": url,
+        "explanation": get_explanation("url"),
+        "recommendation": get_recommendation("url"),
+    })
 
 score = calculate_score(indicators)
 risk_level = get_risk_level(score)
