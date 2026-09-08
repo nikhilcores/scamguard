@@ -3,6 +3,7 @@ RISK_WEIGHTS = {
     "threat": 25,
     "credential": 30,
     "financial": 20,
+    "url": 10,
 }
 
 def calculate_score(indicators):
