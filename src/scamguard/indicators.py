@@ -80,3 +80,5 @@ def find_financial_indicators(message):
             findings.append(phrase)
 
     return findings
+
+URL_PATTERN = r"https?://[^\s]+"
