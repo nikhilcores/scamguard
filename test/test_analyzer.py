@@ -70,3 +70,18 @@ def test_url_detection():
     ]
 
     assert "url" in types
+
+def test_multiple_urls():
+    result = analyze_message(
+        "Visit https://example.com and "
+        "https://example.org"
+    )
+
+    url_indicators = [
+        indicator
+        for indicator in result["indicators"]
+        if indicator["type"] == "url"
+    ]
+
+    assert len(url_indicators) == 1
+    assert len(url_indicators[0]["matches"]) == 2
