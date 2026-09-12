@@ -83,7 +83,7 @@ def find_financial_indicators(message):
 
     return findings
 
-URL_PATTERN = r"https?://[^\s]+"
+URL_PATTERN = r"https?://[^\s<>"]+'
 
 def find_url_indicators(message):
     return re.findall(URL_PATTERN, message)
