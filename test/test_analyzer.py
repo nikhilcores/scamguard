@@ -57,3 +57,16 @@ def test_risk_score_exists():
         "medium",
         "high",
     }
+
+
+def test_url_detection():
+    result = analyze_message(
+        "Check this link: https://example.com"
+    )
+
+    types = [
+        indicator["type"]
+        for indicator in result["indicators"]
+    ]
+
+    assert "url" in types
