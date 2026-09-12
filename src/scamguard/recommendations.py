@@ -15,6 +15,10 @@ RECOMMENDATIONS = {
         "Verify the payment or financial request independently "
         "before sending money."
     ),
+    "url": (
+        "Avoid opening the link until you verify where it "
+        "leads and who sent it."
+    ),
 }
 
 
