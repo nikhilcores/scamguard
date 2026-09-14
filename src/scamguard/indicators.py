@@ -83,6 +83,19 @@ def find_financial_indicators(message):
 
     return findings
 
+SUSPICIOUS_URL_WORDS = {
+    "login",
+    "verify",
+    "verification",
+    "secure",
+    "update",
+    "confirm",
+    "account",
+    "password",
+    "reward",
+    "claim",
+}
+
 URL_PATTERN = r"https?://[^\s<>"]+'
 
 def find_url_indicators(message):
