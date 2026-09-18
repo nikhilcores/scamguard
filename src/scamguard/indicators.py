@@ -110,3 +110,5 @@ def find_suspicious_url_words(url):
             findings.append(word)
 
     return findings
+
+IP_URL_PATTERN = r"https?://(?:\d{1,3}\.){3}\d{1,3}(?::\d+)?"
