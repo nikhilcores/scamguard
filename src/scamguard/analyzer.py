@@ -74,6 +74,24 @@ def analyze_message(message):
         "recommendation": get_recommendation("url"),
     })
 
+if suspicious_url_words:
+    indicators.append({
+        "type": "suspicious_url_word",
+        "severity": get_severity("suspicious_url_word"),
+        "matches": sorted(set(suspicious_url_words)),
+        "explanation": get_explanation("suspicious_url_word"),
+        "recommendation": get_recommendation("suspicious_url_word"),
+    })
+
+if ip_urls:
+    indicators.append({
+        "type": "ip_url",
+        "severity": get_severity("ip_url"),
+        "matches": ip_urls,
+        "explanation": get_explanation("ip_url"),
+        "recommendation": get_recommendation("ip_url"),
+    })
+
 score = calculate_score(indicators)
 risk_level = get_risk_level(score)
 indicator_count = len(indicators)
