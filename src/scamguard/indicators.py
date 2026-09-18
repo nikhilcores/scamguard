@@ -112,3 +112,6 @@ def find_suspicious_url_words(url):
     return findings
 
 IP_URL_PATTERN = r"https?://(?:\d{1,3}\.){3}\d{1,3}(?::\d+)?"
+
+def find_ip_url_indicators(message):
+    return re.findall(IP_URL_PATTERN, message)
