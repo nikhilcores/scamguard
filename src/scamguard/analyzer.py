@@ -9,6 +9,8 @@ from .indicators import (
     find_threat_indicators,
     find_urgency_indicators,
     find_url_indicators,
+    find_suspicious_url_words,
+    find_ip_url_indicators,
 )
 
 def analyze_message(message):
@@ -20,6 +22,14 @@ def analyze_message(message):
     credential = find_credential_indicators(message)
     financial = find_financial_indicators(message)
     url = find_url_indicators(message)
+    suspicious_url_words = []
+
+    for detected_url in url:
+        suspicious_url_words.extend(
+            find_suspicious_url_words(detected_url)
+    )
+
+    ip_urls = find_ip_url_indicators(message)
 
     indicators = []
 
