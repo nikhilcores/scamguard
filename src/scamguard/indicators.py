@@ -83,6 +83,11 @@ def find_financial_indicators(message):
 
     return findings
 
+URL_PATTERN = r"https?://[^\s<>"]+'
+
+def find_url_indicators(message):
+    return re.findall(URL_PATTERN, message)
+
 SUSPICIOUS_URL_WORDS = {
     "login",
     "verify",
@@ -96,7 +101,12 @@ SUSPICIOUS_URL_WORDS = {
     "claim",
 }
 
-URL_PATTERN = r"https?://[^\s<>"]+'
+def find_suspicious_url_words(url):
+    text = url.lower()
+    findings = []
 
-def find_url_indicators(message):
-    return re.findall(URL_PATTERN, message)
+    for word in SUSPICIOUS_URL_WORDS:
+        if word in text:
+            findings.append(word)
+
+    return findings
