@@ -22,6 +22,13 @@ def analyze_message(message):
     credential = find_credential_indicators(message)
     financial = find_financial_indicators(message)
     url = find_url_indicators(message)
+    
+    suspicious_url_words = []
+
+    for url in urls:
+    suspicious_url_words.extend(find_suspicious_url_words(url))
+
+ip_urls = find_ip_url_indicators(message)
     suspicious_url_words = []
 
     for detected_url in url:
