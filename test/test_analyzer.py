@@ -85,3 +85,12 @@ def test_multiple_urls():
 
     assert len(url_indicators) == 1
     assert len(url_indicators[0]["matches"]) == 2
+
+def test_detects_suspicious_url_words():
+    result = analyze_message(
+        "Please verify your account at https://example.com/login"
+    )
+
+    assert "verify" in result["suspicious_url_words"]
+    assert "account" in result["suspicious_url_words"]
+    assert "login" in result["suspicious_url_words"]
