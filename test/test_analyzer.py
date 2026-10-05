@@ -111,3 +111,14 @@ def test_detects_ip_based_url():
     )
 
     assert "http://192.168.1.10/login" in result["ip_urls"]
+
+def test_includes_url_risk_metadata():
+    result = analyze_message(
+        "Verify your account at https://example.com/login"
+    )
+
+    assert result["urls"] == ["https://example.com/login"]
+    assert "verify" in result["suspicious_url_words"]
+    assert "account" in result["suspicious_url_words"]
+    assert "login" in result["suspicious_url_words"]
+    assert result["ip_urls"] == []
