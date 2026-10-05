@@ -122,3 +122,12 @@ def test_includes_url_risk_metadata():
     assert "account" in result["suspicious_url_words"]
     assert "login" in result["suspicious_url_words"]
     assert result["ip_urls"] == []
+
+def test_normal_url_has_no_suspicious_url_words():
+    result = analyze_message(
+        "Visit https://example.com for more information"
+    )
+
+    assert result["urls"] == ["https://example.com"]
+    assert result["suspicious_url_words"] == []
+    assert result["ip_urls"] == []
