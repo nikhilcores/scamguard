@@ -131,3 +131,18 @@ def test_normal_url_has_no_suspicious_url_words():
     assert result["urls"] == ["https://example.com"]
     assert result["suspicious_url_words"] == []
     assert result["ip_urls"] == []
+
+def test_url_detection_preserves_message_indicators():
+    result = analyze_message(
+        "Urgent! Verify your account immediately at https://example.com/login"
+    )
+
+    indicator_types = {
+        indicator["type"]
+        for indicator in result["indicators"]
+    }
+
+    assert "urgency" in indicator_types
+    assert "credential" in indicator_types
+    assert "url" in indicator_types
+    assert "suspicious_url_word" in indicator_types
