@@ -13,6 +13,7 @@ from .indicators import (
     find_ip_url_indicators,
 )
 
+
 def analyze_message(message):
     if not message or not message.strip():
         raise ValueError("Message cannot be empty.")
@@ -21,20 +22,14 @@ def analyze_message(message):
     threat = find_threat_indicators(message)
     credential = find_credential_indicators(message)
     financial = find_financial_indicators(message)
-    url = find_url_indicators(message)
-    
+    urls = find_url_indicators(message)
+
     suspicious_url_words = []
 
     for url in urls:
-    suspicious_url_words.extend(find_suspicious_url_words(url))
-
-ip_urls = find_ip_url_indicators(message)
-    suspicious_url_words = []
-
-    for detected_url in url:
         suspicious_url_words.extend(
-            find_suspicious_url_words(detected_url)
-    )
+            find_suspicious_url_words(url)
+        )
 
     ip_urls = find_ip_url_indicators(message)
 
@@ -48,6 +43,7 @@ ip_urls = find_ip_url_indicators(message)
             "explanation": get_explanation("urgency"),
             "recommendation": get_recommendation("urgency"),
         })
+
     if threat:
         indicators.append({
             "type": "threat",
@@ -56,14 +52,16 @@ ip_urls = find_ip_url_indicators(message)
             "explanation": get_explanation("threat"),
             "recommendation": get_recommendation("threat"),
         })
+
     if credential:
         indicators.append({
-            "type": "credential:,
+            "type": "credential",
             "severity": get_severity("credential"),
             "matches": credential,
             "explanation": get_explanation("credential"),
             "recommendation": get_recommendation("credential"),
         })
+
     if financial:
         indicators.append({
             "type": "financial",
@@ -72,45 +70,49 @@ ip_urls = find_ip_url_indicators(message)
             "explanation": get_explanation("financial"),
             "recommendation": get_recommendation("financial"),
         })
-    if url:
-    indicators.append({
-        "type": "url",
-        "severity": get_severity("url"),
-        "matches": url,
-        "explanation": get_explanation("url"),
-        "recommendation": get_recommendation("url"),
-    })
 
-if suspicious_url_words:
-    indicators.append({
-        "type": "suspicious_url_word",
-        "severity": get_severity("suspicious_url_word"),
-        "matches": sorted(set(suspicious_url_words)),
-        "explanation": get_explanation("suspicious_url_word"),
-        "recommendation": get_recommendation("suspicious_url_word"),
-    })
+    if urls:
+        indicators.append({
+            "type": "url",
+            "severity": get_severity("url"),
+            "matches": urls,
+            "explanation": get_explanation("url"),
+            "recommendation": get_recommendation("url"),
+        })
 
-if ip_urls:
-    indicators.append({
-        "type": "ip_url",
-        "severity": get_severity("ip_url"),
-        "matches": ip_urls,
-        "explanation": get_explanation("ip_url"),
-        "recommendation": get_recommendation("ip_url"),
-    })
+    if suspicious_url_words:
+        indicators.append({
+            "type": "suspicious_url_word",
+            "severity": get_severity("suspicious_url_word"),
+            "matches": sorted(set(suspicious_url_words)),
+            "explanation": get_explanation("suspicious_url_word"),
+            "recommendation": get_recommendation("suspicious_url_word"),
+        })
 
-score = calculate_score(indicators)
-risk_level = get_risk_level(score)
-indicator_count = len(indicators)
+    if ip_urls:
+        indicators.append({
+            "type": "ip_url",
+            "severity": get_severity("ip_url"),
+            "matches": ip_urls,
+            "explanation": get_explanation("ip_url"),
+            "recommendation": get_recommendation("ip_url"),
+        })
 
-    return {
+    score = calculate_score(indicators)
+    risk_level = get_risk_level(score)
+    indicator_count = len(indicators)
+
+    result = {
         "message": message,
         "indicators": indicators,
         "indicator_count": indicator_count,
         "score": score,
         "risk_level": risk_level,
+        "urls": urls,
+        "suspicious_url_words": sorted(set(suspicious_url_words)),
+        "ip_urls": ip_urls,
     }
 
-result["report"] = format_report(result)
+    result["report"] = format_report(result)
 
-return result
+    return result
