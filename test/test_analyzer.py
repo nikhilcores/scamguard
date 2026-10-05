@@ -94,3 +94,13 @@ def test_detects_suspicious_url_words():
     assert "verify" in result["suspicious_url_words"]
     assert "account" in result["suspicious_url_words"]
     assert "login" in result["suspicious_url_words"]
+
+def test_detects_multiple_suspicious_url_words():
+    result = analyze_message(
+        "Claim your reward and confirm your password at https://example.com/claim"
+    )
+
+    assert "reward" in result["suspicious_url_words"]
+    assert "confirm" in result["suspicious_url_words"]
+    assert "password" in result["suspicious_url_words"]
+    assert "claim" in result["suspicious_url_words"]
