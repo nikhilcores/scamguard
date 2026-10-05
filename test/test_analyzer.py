@@ -104,3 +104,10 @@ def test_detects_multiple_suspicious_url_words():
     assert "confirm" in result["suspicious_url_words"]
     assert "password" in result["suspicious_url_words"]
     assert "claim" in result["suspicious_url_words"]
+
+def test_detects_ip_based_url():
+    result = analyze_message(
+        "Visit http://192.168.1.10/login"
+    )
+
+    assert "http://192.168.1.10/login" in result["ip_urls"]
